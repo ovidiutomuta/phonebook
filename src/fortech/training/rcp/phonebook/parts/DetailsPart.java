@@ -14,17 +14,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class DetailsPart {
+import fortech.training.rcp.phonebook.model.Person;
 
+public class DetailsPart {
 	private Text firstNameText;
 	private Text secondNameText;
 	private Text adressText;
 	private Text phoneText;
 	private TableViewer tableViewer;
-
+	private int id;
+	private Person personSelected;
 	@Inject
 	private MDirtyable dirty;
-
+	
 	@PostConstruct
 	public void createComposite(Composite parent) {
 
@@ -69,5 +71,8 @@ public class DetailsPart {
 	@Persist
 	public void save() {
 		dirty.setDirty(false);
+	}
+	public void changeTest(String str) {
+		firstNameText.setText("asdasadasda");
 	}
 }

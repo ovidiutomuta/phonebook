@@ -28,12 +28,13 @@ public class PersonRepository {
 		return result;
 	}
 
-	public List<String> getAllPersonByName(String name) {
-		List<String> result = new ArrayList<String>();
+	public List<Person> getAllPersonByName(String name) {
+		List<Person> result = new ArrayList<Person>();
 		for (Person p : container) {
 			if (p.getFirstName().toUpperCase().contains(name.toUpperCase())
+					
 					|| p.getLastName().toUpperCase().contains(name.toUpperCase())) {
-				result.add(p.toString());
+				result.add(p);
 			}
 		}
 		return result;
