@@ -6,7 +6,7 @@
         <children xsi:type="basic:Part" xmi:id="_2EA9UHH-EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.part.phonebook" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.parts.PhonebookPart" label="PhoneBook"/>
       </children>
       <children xsi:type="basic:PartStack" xmi:id="__pCW0HH-EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.partstack.1" selectedElement="_4A8kEHH-EeeTwsALOodFXg">
-        <children xsi:type="basic:Part" xmi:id="_4A8kEHH-EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.part.details" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.parts.DetailsPart" label="Details"/>
+        <children xsi:type="basic:Part" xmi:id="_4A8kEHH-EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.part.details" visible="false" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.parts.DetailsPart" label="Details" closeable="true"/>
       </children>
     </children>
     <mainMenu xmi:id="_6wlLicgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.menu">
@@ -28,6 +28,7 @@
   <handlers xmi:id="_6wlLhMgZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.handler.saveCommand" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.SaveHandler" command="_6wlLg8gZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_6wlLh8gZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.handler.aboutCommand" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.AboutHandler" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_o6seAHH7EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.handler.displayCommand" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.DisplayHandler" command="_JAR6YHH8EeeTwsALOodFXg"/>
+  <handlers xmi:id="_GoBUYHK-Eee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.handler.details" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.DetailsHandler" command="_JmTDYHK-Eee64vaiCwU9cA"/>
   <bindingTables xmi:id="_6wlLfsgZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.bindingtable" bindingContext="_6wlLecgZEeSyMNYR5xypkQ">
     <bindings xmi:id="_6wlLf8gZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.keybinding.m1q" keySequence="M1+Q" command="_6wlLfMgZEeSyMNYR5xypkQ"/>
     <bindings xmi:id="_6wlLgsgZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.keybinding.m1o" keySequence="M1+O" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
@@ -38,11 +39,13 @@
     <children xmi:id="_6wlLesgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_6wlLe8gZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
+  <descriptors xmi:id="_kD9_kHK_Eee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.partdescriptor.details" label="Details" allowMultiple="true" closeable="true" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.parts.DetailsPart"/>
   <commands xmi:id="_6wlLfMgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
   <commands xmi:id="_6wlLgMgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.open" commandName="openCommand"/>
   <commands xmi:id="_6wlLg8gZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.file.save" commandName="saveCommand"/>
   <commands xmi:id="_6wlLhsgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
   <commands xmi:id="_JAR6YHH8EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.command.display" commandName="displayCommand"/>
+  <commands xmi:id="_JmTDYHK-Eee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.command.display" commandName="detailsCommand"/>
   <addons xmi:id="_6wlLcsgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_6wlLc8gZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_6wlLdMgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

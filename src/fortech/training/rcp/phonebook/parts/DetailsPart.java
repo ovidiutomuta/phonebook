@@ -22,44 +22,19 @@ public class DetailsPart {
 	private Text adressText;
 	private Text phoneText;
 	private TableViewer tableViewer;
-	private int id;
-	private Person personSelected;
+	private Person person;
 	@Inject
 	private MDirtyable dirty;
-	
+
 	@PostConstruct
 	public void createComposite(Composite parent) {
 
 		parent.setLayout(new GridLayout(2, false));
-
-		Label firstNameLabel = new Label(parent, SWT.NONE);
-		firstNameLabel.setText("First Name: ");
-		firstNameLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-
-		firstNameText = new Text(parent, SWT.BORDER);
-		firstNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-		Label secondNameLabel = new Label(parent, SWT.NONE);
-		secondNameLabel.setText("Second Name: ");
-		secondNameLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-
-		secondNameText = new Text(parent, SWT.BORDER);
-		secondNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-		Label adressLabel = new Label(parent, SWT.NONE);
-		adressLabel.setText("Adress: ");
-		adressLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-
-		adressText = new Text(parent, SWT.BORDER);
-		adressText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
-		Label phoneLabel = new Label(parent, SWT.NONE);
-		phoneLabel.setText("Phone: ");
-		phoneLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-
-		phoneText = new Text(parent, SWT.BORDER);
-		phoneText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
+		if (person != null) {
+			constructPersonDetails(person, parent);
+		} else {
+			constructPersonDetails(new Person("-", "-", "-", "-"), parent);
+		}
 
 	}
 
@@ -72,6 +47,53 @@ public class DetailsPart {
 	public void save() {
 		dirty.setDirty(false);
 	}
+
+	public void constructPersonDetails(Person p, Composite parent) {
+		Label firstNameLabel = new Label(parent, SWT.NONE);
+		firstNameLabel.setText("First Name: ");
+		firstNameLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		firstNameText = new Text(parent, SWT.BORDER);
+		firstNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		firstNameText.setText(p.getFirstName());
+
+		Label secondNameLabel = new Label(parent, SWT.NONE);
+		secondNameLabel.setText("Second Name: ");
+		secondNameLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		secondNameText = new Text(parent, SWT.BORDER);
+		secondNameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		secondNameText.setText(p.getLastName());
+
+		Label adressLabel = new Label(parent, SWT.NONE);
+		adressLabel.setText("Adress: ");
+		adressLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		adressText = new Text(parent, SWT.BORDER);
+		adressText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		adressText.setText(p.getAddress());
+
+		Label phoneLabel = new Label(parent, SWT.NONE);
+		phoneLabel.setText("Phone: ");
+		phoneLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		phoneText = new Text(parent, SWT.BORDER);
+		phoneText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		phoneText.setText(p.getPhoneNumber());
+	}
+
+	public void kek() {
+		System.out.println("sadasd");
+	}
+
+	public void setPerson(Person p) {
+		this.person = p;
+		updateDetails(p);
+	}
+
+	public void updateDetails(Person p) {
+		firstNameText.setText(p.getFirstName());
+		secondNameText.setText(p.getLastName());
+		adressText.setText(p.getAddress());
+		phoneText.setText(p.getPhoneNumber());
+	}
+
 	public void changeTest(String str) {
 		firstNameText.setText("asdasadasda");
 	}

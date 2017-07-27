@@ -2,7 +2,7 @@ package fortech.training.rcp.phonebook.model;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Person {
+public class Person extends ModelObject {
 
 	private int id;
 	private String firstName;
@@ -10,6 +10,15 @@ public class Person {
 	private String address;
 	private String phoneNumber;
 	private static final AtomicInteger count = new AtomicInteger(0);
+
+	public Person(String firstName) {
+		super();
+		this.id = count.incrementAndGet();
+		this.firstName = firstName;
+		this.lastName = "-";
+		this.address = "-";
+		this.phoneNumber = "-";
+	}
 
 	public Person(String firstName, String lastName, String address, String phoneNumber) {
 		super();
@@ -29,7 +38,7 @@ public class Person {
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		firePropertyChange("name", this.firstName, this.firstName = firstName);
 	}
 
 	public String getLastName() {
@@ -58,7 +67,7 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return this.firstName + " " + this.lastName+" "+this.address;
+		return this.firstName + " " + this.lastName + " " + this.address;
 	}
 
 }
