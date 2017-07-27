@@ -19,7 +19,6 @@ public class DetailsHandler {
 	@Inject
 	@Optional
 	void logging2(@UIEventTopic("open_details") Person p) {
-		System.out.println("got url " + p.toString());
 		createNewPart(p);
 	}
 
@@ -29,12 +28,7 @@ public class DetailsHandler {
 	}
 
 	private DetailsPart createNewPart(Person p) {
-		System.out.println("CREATED DETAILS");
 		MPart part = partService.createPart("fortech.training.rcp.phonebook.partdescriptor.details");
-
-		System.out.println("AAAAAAAAAAAAAAAAA");
-		// DetailsPart dp = (DetailsPart) part.getObject();
-		// dp.kek();
 		return (DetailsPart) partService.showPart(part, PartState.ACTIVATE).getObject();
 	}
 

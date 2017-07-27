@@ -71,34 +71,22 @@ public class PhonebookPart {
 		tableViewer.getControl().setLayoutData(gridData);
 		tableViewer.setInput(pr.getAllPerson());
 
-		Person temp = new Person("k", "k", "k", "k");
 		tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(final SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				Object selectedNode = selection.getFirstElement();
 
-				if (selection.getFirstElement() != null) {
-					System.out.println(selection.getFirstElement() + " selected");
-					if (selectedNode instanceof Person) {
-						System.out.println("got a person");
-					}
-					broker.send("open_details", temp);
+				if (selectedNode instanceof Person) {
 
+					broker.send("open_details", selectedNode);
 					MPart samplePart = epartService.getActivePart();
-
-					if (samplePart.getElementId().equals("com.test.browser.part.historyPart")) {
-						System.out.println("Nimic");
-					} else {
-						System.out.println("asdasdasdasdas");
-						Object ob1 = samplePart.getObject();
-						DetailsPart sp = (DetailsPart) ob1;
-						sp.setPerson((Person) selectedNode);
-
-						samplePart = epartService.getActivePart();
-						ob1 = samplePart.getObject();
-						sp = (DetailsPart) ob1;
-					}
+					Object ob1 = samplePart.getObject();
+					DetailsPart sp = (DetailsPart) ob1;
+					sp.setPerson((Person) selectedNode);
+					samplePart = epartService.getActivePart();
+					ob1 = samplePart.getObject();
+					sp = (DetailsPart) ob1;
 				}
 			}
 		});
@@ -108,6 +96,7 @@ public class PhonebookPart {
 			public void modifyText(ModifyEvent e) {
 				tableViewer.setInput(pr.getAllPersonByName(txtInput.getText()));
 			}
+
 		});
 	}
 

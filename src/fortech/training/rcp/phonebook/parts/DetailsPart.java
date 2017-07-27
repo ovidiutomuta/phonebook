@@ -33,9 +33,8 @@ public class DetailsPart {
 		if (person != null) {
 			constructPersonDetails(person, parent);
 		} else {
-			constructPersonDetails(new Person("-", "-", "-", "-"), parent);
+			constructPersonDetails(new Person("-"), parent);
 		}
-
 	}
 
 	@Focus
@@ -78,10 +77,6 @@ public class DetailsPart {
 		phoneText.setText(p.getPhoneNumber());
 	}
 
-	public void kek() {
-		System.out.println("sadasd");
-	}
-
 	public void setPerson(Person p) {
 		this.person = p;
 		updateDetails(p);
@@ -92,9 +87,5 @@ public class DetailsPart {
 		secondNameText.setText(p.getLastName());
 		adressText.setText(p.getAddress());
 		phoneText.setText(p.getPhoneNumber());
-	}
-
-	public void changeTest(String str) {
-		firstNameText.setText("asdasadasda");
 	}
 }
