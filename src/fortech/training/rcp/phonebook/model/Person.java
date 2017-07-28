@@ -16,26 +16,22 @@ public class Person implements PropertyChangeListener {
 
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-	public Person() {
-
-	}
-
 	public Person(String firstName) {
 		super();
 		this.id = count.incrementAndGet();
-		this.setFirstName(firstName);
-		this.setLastName("-");
-		this.setAddress("-");
-		this.setPhoneNumber("-");
+		this.firstName = firstName;
+		this.lastName = "-";
+		this.address = "-";
+		this.phoneNumber = "-";
 	}
 
 	public Person(String firstName, String lastName, String address, String phoneNumber) {
 		super();
 		this.id = count.incrementAndGet();
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setAddress(address);
-		this.setPhoneNumber(phoneNumber);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {

@@ -3,18 +3,14 @@ package fortech.training.rcp.phonebook.parts;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
-import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -32,7 +28,6 @@ public class DetailsPart {
 	private Text secondNameText;
 	private Text adressText;
 	private Text phoneText;
-	private TableViewer tableViewer;
 	private Person person;
 	@Inject
 	private MDirtyable dirty;
@@ -61,11 +56,7 @@ public class DetailsPart {
 	}
 
 	private Person createPerson() {
-		Person person = new Person();
-		person.setFirstName("Bubu");
-		person.setLastName("Lina");
-		person.setAddress("Str aaaa bb");
-		person.setPhoneNumber("012312321");
+		Person person = new Person("tempFN", "tempLN", "tempAdd", "tempPN");
 		return person;
 	}
 
