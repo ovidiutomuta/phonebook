@@ -45,6 +45,8 @@ import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -109,26 +111,44 @@ public class PhonebookPart {
 				Object selectedNode = selection.getFirstElement();
 
 				if (selectedNode instanceof Person) {
-
-					broker.send("open_details", selectedNode);
-					MPart samplePart = epartService.getActivePart();
-					Object ob1 = samplePart.getObject();
-					DetailsPart sp = (DetailsPart) ob1;
-					sp.setPerson((Person) selectedNode);
-					samplePart = epartService.getActivePart();
-					ob1 = samplePart.getObject();
-					sp = (DetailsPart) ob1;
+					Person person = (Person) selectedNode;
+					System.out.println("am selectat " + person.toString());
 				}
 			}
 		});
 
+		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				Object selectedNode = selection.getFirstElement();
+
+				if (selectedNode instanceof Person) {
+					Person person = (Person) selectedNode;
+					System.out.println("am selectat " + person.toString());
+					broker.send("open_details", person);
+					//
+					// MPart samplePart = epartService.getActivePart();
+					//
+					// Object ob1 = samplePart.getObject();
+					// DetailsPart sp = (DetailsPart) ob1;
+					// //sp.setPerson((Person) selectedNode);
+					//
+					// ob1 = samplePart.getObject();
+					// sp = (DetailsPart) ob1;
+
+				}
+			}
+		});
 		txtInput.addModifyListener(new ModifyListener() {
+
 			@Override
 			public void modifyText(ModifyEvent e) {
 				tableViewer.setInput(pr.getAllPersonByName(txtInput.getText()));
 			}
 
 		});
+
 		ObservableListContentProvider contentProvider = new ObservableListContentProvider();
 		IObservableSet knownElements = contentProvider.getKnownElements();
 
@@ -211,5 +231,4 @@ public class PhonebookPart {
 		dirty.setDirty(false);
 	}
 
-	
 }

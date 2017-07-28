@@ -13,24 +13,37 @@ public class Person implements PropertyChangeListener {
 	private String address;
 	private String phoneNumber;
 	private static final AtomicInteger count = new AtomicInteger(0);
+
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+	public Person() {
+
+	}
 
 	public Person(String firstName) {
 		super();
 		this.id = count.incrementAndGet();
-		this.firstName = firstName;
-		this.lastName = "-";
-		this.address = "-";
-		this.phoneNumber = "-";
+		this.setFirstName(firstName);
+		this.setLastName("-");
+		this.setAddress("-");
+		this.setPhoneNumber("-");
 	}
 
 	public Person(String firstName, String lastName, String address, String phoneNumber) {
 		super();
 		this.id = count.incrementAndGet();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.phoneNumber = phoneNumber;
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setAddress(address);
+		this.setPhoneNumber(phoneNumber);
+	}
+
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
 	}
 
 	public int getId() {
@@ -71,7 +84,7 @@ public class Person implements PropertyChangeListener {
 
 	@Override
 	public String toString() {
-		return this.firstName + " " + this.lastName + " " + this.address;
+		return this.firstName + " " + this.lastName + " " + this.address + " " + this.phoneNumber;
 	}
 
 	@Override
@@ -79,11 +92,4 @@ public class Person implements PropertyChangeListener {
 		propertyChangeSupport.firePropertyChange("firstName", null, firstName);
 	}
 
-	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-	}
-
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		propertyChangeSupport.removePropertyChangeListener(listener);
-	}
 }

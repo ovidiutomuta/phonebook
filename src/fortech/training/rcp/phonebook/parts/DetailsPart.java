@@ -13,6 +13,7 @@ import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -40,23 +41,36 @@ public class DetailsPart {
 	public void createComposite(Composite parent) {
 
 		parent.setLayout(new GridLayout(2, false));
-		if (person != null) {
-			constructPersonDetails(person, parent);
-		} else {
-			constructPersonDetails(new Person("-"), parent);
+		if (person == null) {
+			person = createPerson();
 		}
+		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(parent);
+		constructPersonDetails(person, parent);
 		constructButtons(parent);
 		bindValues();
 	}
 
 	@Focus
 	public void setFocus() {
-		tableViewer.getTable().setFocus();
+
 	}
 
 	@Persist
 	public void save() {
 		dirty.setDirty(false);
+	}
+
+	private Person createPerson() {
+		Person person = new Person();
+		person.setFirstName("Bubu");
+		person.setLastName("Lina");
+		person.setAddress("Str aaaa bb");
+		person.setPhoneNumber("012312321");
+		return person;
+	}
+
+	public void a() {
+
 	}
 
 	public void constructPersonDetails(Person p, Composite parent) {
@@ -93,12 +107,11 @@ public class DetailsPart {
 	public void constructButtons(Composite parent) {
 		Button saveButton = new Button(parent, SWT.PUSH);
 		saveButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
-		saveButton.setText("Save");
+		saveButton.setText("Show Model");
 		saveButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(person.getFirstName());
-				person.setFirstName("aa");
+				System.out.println(person);
 			}
 		});
 
@@ -108,30 +121,44 @@ public class DetailsPart {
 		cancelButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				updateDetails(person);
+				updateDetails();
 			}
 		});
 	}
 
 	public void setPerson(Person p) {
-		this.person = p;
-		updateDetails(p);
+		person = p;
+		updateDetails();
+		bindValues();
 	}
 
-	public void updateDetails(Person p) {
-		firstNameText.setText(p.getFirstName());
-		secondNameText.setText(p.getLastName());
-		adressText.setText(p.getAddress());
-		phoneText.setText(p.getPhoneNumber());
+	public void updateDetails() {
+		firstNameText.setText(person.getFirstName());
+		secondNameText.setText(person.getLastName());
+		adressText.setText(person.getAddress());
+		phoneText.setText(person.getPhoneNumber());
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void bindValues() {
-		System.out.println("binding");
 		DataBindingContext ctx = new DataBindingContext();
 		IObservableValue widgetValue = WidgetProperties.text(SWT.Modify).observe(firstNameText);
 		IObservableValue modelValue = BeanProperties.value(Person.class, "firstName").observe(person);
 		ctx.bindValue(widgetValue, modelValue);
-		
+
+		ctx = new DataBindingContext();
+		widgetValue = WidgetProperties.text(SWT.Modify).observe(secondNameText);
+		modelValue = BeanProperties.value(Person.class, "lastName").observe(person);
+		ctx.bindValue(widgetValue, modelValue);
+
+		ctx = new DataBindingContext();
+		widgetValue = WidgetProperties.text(SWT.Modify).observe(adressText);
+		modelValue = BeanProperties.value(Person.class, "address").observe(person);
+		ctx.bindValue(widgetValue, modelValue);
+
+		ctx = new DataBindingContext();
+		widgetValue = WidgetProperties.text(SWT.Modify).observe(phoneText);
+		modelValue = BeanProperties.value(Person.class, "phoneNumber").observe(person);
+		ctx.bindValue(widgetValue, modelValue);
 	}
 }

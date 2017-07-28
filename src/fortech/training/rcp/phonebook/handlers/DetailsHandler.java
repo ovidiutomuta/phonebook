@@ -19,15 +19,24 @@ public class DetailsHandler {
 	@Inject
 	@Optional
 	void logging2(@UIEventTopic("open_details") Person p) {
-		createNewPart(p);
+
+		if (p != null) {
+			System.out.println(p.toString());
+			 createNewPart().setPerson(p);
+			//dp.setPerson(p);
+		} else {
+			createNewPart();
+		}
+
 	}
 
 	@Execute
 	public void execute() {
-		createNewPart(new Person("*", "*", "*", "*"));
+		System.out.println("in executrte");
+		createNewPart();
 	}
 
-	private DetailsPart createNewPart(Person p) {
+	private DetailsPart createNewPart() {
 		MPart part = partService.createPart("fortech.training.rcp.phonebook.partdescriptor.details");
 		return (DetailsPart) partService.showPart(part, PartState.ACTIVATE).getObject();
 	}
