@@ -1,8 +1,11 @@
 package fortech.training.rcp.phonebook.model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Person extends ModelObject {
+public class Person implements PropertyChangeListener {
 
 	private int id;
 	private String firstName;
@@ -10,6 +13,7 @@ public class Person extends ModelObject {
 	private String address;
 	private String phoneNumber;
 	private static final AtomicInteger count = new AtomicInteger(0);
+	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
 	public Person(String firstName) {
 		super();
@@ -38,7 +42,7 @@ public class Person extends ModelObject {
 	}
 
 	public void setFirstName(String firstName) {
-		firePropertyChange("name", this.firstName, this.firstName = firstName);
+		propertyChangeSupport.firePropertyChange("firstName", this.firstName, this.firstName = firstName);
 	}
 
 	public String getLastName() {
@@ -46,7 +50,7 @@ public class Person extends ModelObject {
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		propertyChangeSupport.firePropertyChange("lastName", this.lastName, this.lastName = lastName);
 	}
 
 	public String getAddress() {
@@ -54,7 +58,7 @@ public class Person extends ModelObject {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		propertyChangeSupport.firePropertyChange("address", this.address, this.address = address);
 	}
 
 	public String getPhoneNumber() {
@@ -62,7 +66,7 @@ public class Person extends ModelObject {
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		propertyChangeSupport.firePropertyChange("phoneNumber", this.phoneNumber, this.phoneNumber = phoneNumber);
 	}
 
 	@Override
@@ -70,4 +74,16 @@ public class Person extends ModelObject {
 		return this.firstName + " " + this.lastName + " " + this.address;
 	}
 
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		propertyChangeSupport.firePropertyChange("firstName", null, firstName);
+	}
+
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
+	}
 }

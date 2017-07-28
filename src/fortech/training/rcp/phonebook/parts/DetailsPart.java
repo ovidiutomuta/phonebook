@@ -3,13 +3,23 @@ package fortech.training.rcp.phonebook.parts;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.eclipse.core.databinding.Binding;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
+import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -35,6 +45,8 @@ public class DetailsPart {
 		} else {
 			constructPersonDetails(new Person("-"), parent);
 		}
+		constructButtons(parent);
+		bindValues();
 	}
 
 	@Focus
@@ -48,6 +60,7 @@ public class DetailsPart {
 	}
 
 	public void constructPersonDetails(Person p, Composite parent) {
+
 		Label firstNameLabel = new Label(parent, SWT.NONE);
 		firstNameLabel.setText("First Name: ");
 		firstNameLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
@@ -77,6 +90,29 @@ public class DetailsPart {
 		phoneText.setText(p.getPhoneNumber());
 	}
 
+	public void constructButtons(Composite parent) {
+		Button saveButton = new Button(parent, SWT.PUSH);
+		saveButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		saveButton.setText("Save");
+		saveButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				System.out.println(person.getFirstName());
+				person.setFirstName("aa");
+			}
+		});
+
+		Button cancelButton = new Button(parent, SWT.PUSH);
+		cancelButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
+		cancelButton.setText("Cancel");
+		cancelButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				updateDetails(person);
+			}
+		});
+	}
+
 	public void setPerson(Person p) {
 		this.person = p;
 		updateDetails(p);
@@ -87,5 +123,15 @@ public class DetailsPart {
 		secondNameText.setText(p.getLastName());
 		adressText.setText(p.getAddress());
 		phoneText.setText(p.getPhoneNumber());
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void bindValues() {
+		System.out.println("binding");
+		DataBindingContext ctx = new DataBindingContext();
+		IObservableValue widgetValue = WidgetProperties.text(SWT.Modify).observe(firstNameText);
+		IObservableValue modelValue = BeanProperties.value(Person.class, "firstName").observe(person);
+		ctx.bindValue(widgetValue, modelValue);
+		
 	}
 }

@@ -32,7 +32,7 @@ public class PersonRepository {
 		List<Person> result = new ArrayList<Person>();
 		for (Person p : container) {
 			if (p.getFirstName().toUpperCase().contains(name.toUpperCase())
-					
+
 					|| p.getLastName().toUpperCase().contains(name.toUpperCase())) {
 				result.add(p);
 			}

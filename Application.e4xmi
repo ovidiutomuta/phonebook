@@ -19,7 +19,7 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_6wlLj8gZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.handleditem.about" label="About" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_RgpgUHH5EeeTwsALOodFXg" elementId="manage" label="Manage">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_cZ8lIHH5EeeTwsALOodFXg" elementId="showAllPerson" label="Show All Person"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_15vl8HLNEee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.handledmenuitem.addperson" label="Add Person" command="_8RnuAHLNEee64vaiCwU9cA"/>
       </children>
     </mainMenu>
   </children>
@@ -29,6 +29,7 @@
   <handlers xmi:id="_6wlLh8gZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.handler.aboutCommand" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.AboutHandler" command="_6wlLhsgZEeSyMNYR5xypkQ"/>
   <handlers xmi:id="_o6seAHH7EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.handler.displayCommand" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.DisplayHandler" command="_JAR6YHH8EeeTwsALOodFXg"/>
   <handlers xmi:id="_GoBUYHK-Eee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.handler.details" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.DetailsHandler" command="_JmTDYHK-Eee64vaiCwU9cA"/>
+  <handlers xmi:id="__OThkHLNEee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.handler.add" contributionURI="bundleclass://fortech.training.rcp.phonebook/fortech.training.rcp.phonebook.handlers.AddPersonHandler" command="_8RnuAHLNEee64vaiCwU9cA"/>
   <bindingTables xmi:id="_6wlLfsgZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.bindingtable" bindingContext="_6wlLecgZEeSyMNYR5xypkQ">
     <bindings xmi:id="_6wlLf8gZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.keybinding.m1q" keySequence="M1+Q" command="_6wlLfMgZEeSyMNYR5xypkQ"/>
     <bindings xmi:id="_6wlLgsgZEeSyMNYR5xypkQ" elementId="fortech.training.rcp.phonebook.keybinding.m1o" keySequence="M1+O" command="_6wlLgMgZEeSyMNYR5xypkQ"/>
@@ -46,6 +47,7 @@
   <commands xmi:id="_6wlLhsgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
   <commands xmi:id="_JAR6YHH8EeeTwsALOodFXg" elementId="fortech.training.rcp.phonebook.command.display" commandName="displayCommand"/>
   <commands xmi:id="_JmTDYHK-Eee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.command.display" commandName="detailsCommand"/>
+  <commands xmi:id="_8RnuAHLNEee64vaiCwU9cA" elementId="fortech.training.rcp.phonebook.command.add" commandName="addCommand"/>
   <addons xmi:id="_6wlLcsgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_6wlLc8gZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_6wlLdMgZEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

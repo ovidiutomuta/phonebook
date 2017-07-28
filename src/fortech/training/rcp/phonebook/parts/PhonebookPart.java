@@ -5,15 +5,47 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.eclipse.core.databinding.Binding;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.validation.IValidator;
+import org.eclipse.core.databinding.validation.ValidationStatus;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.observable.list.IObservableList;
+import org.eclipse.core.databinding.observable.map.IObservableMap;
+import org.eclipse.core.databinding.observable.set.IObservableSet;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.property.Properties;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -29,7 +61,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
-
 import fortech.training.rcp.phonebook.model.Person;
 import fortech.training.rcp.phonebook.repository.PersonRepository;
 
@@ -98,6 +129,21 @@ public class PhonebookPart {
 			}
 
 		});
+		ObservableListContentProvider contentProvider = new ObservableListContentProvider();
+		IObservableSet knownElements = contentProvider.getKnownElements();
+
+		final IObservableMap firstNames = BeanProperties.value(Person.class, "firstName").observeDetail(knownElements);
+		final IObservableMap lastNames = BeanProperties.value(Person.class, "lastName").observeDetail(knownElements);
+
+		IObservableMap[] labelMaps = { firstNames, lastNames };
+
+		ILabelProvider labelProvider = new ObservableMapLabelProvider(labelMaps) {
+			public String getText(Object element) {
+				return firstNames.get(element) + " " + lastNames.get(element);
+			}
+		};
+		tableViewer.setContentProvider(new ObservableListContentProvider());
+
 	}
 
 	public void createColumns(TableViewer tableViewer) {
@@ -165,4 +211,5 @@ public class PhonebookPart {
 		dirty.setDirty(false);
 	}
 
+	
 }
